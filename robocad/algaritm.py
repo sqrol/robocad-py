@@ -18,6 +18,11 @@ class RobotAlgaritm(Robot):
             signal.signal(signal.SIGTERM, self.handler)
             signal.signal(signal.SIGINT, self.handler)
 
+        self.last_enc_0 = 0
+        self.last_enc_1 = 0
+        self.last_enc_2 = 0
+        self.last_enc_3 = 0
+
     def stop(self):
         self.__algaritm_internal.stop()
         self.write_log("Program stopped")
@@ -62,20 +67,32 @@ class RobotAlgaritm(Robot):
 
     @property
     def motor_enc_0(self):
-        return self.__algaritm_internal.enc_motor_0
+        return self.__algaritm_internal.enc_motor_0 - self.last_enc_0
 
     @property
     def motor_enc_1(self):
-        return self.__algaritm_internal.enc_motor_1
+        return self.__algaritm_internal.enc_motor_1 - self.last_enc_1
 
     @property
     def motor_enc_2(self):
-        return self.__algaritm_internal.enc_motor_2
+        return self.__algaritm_internal.enc_motor_2 - self.last_enc_2
 
     @property
     def motor_enc_3(self):
-        return self.__algaritm_internal.enc_motor_3
-    
+        return self.__algaritm_internal.enc_motor_3 - self.last_enc_3
+
+    def reset_motor_enc_0(self):
+        self.last_enc_0 = self.__algaritm_internal.enc_motor_0
+
+    def reset_motor_enc_1(self):
+        self.last_enc_1 = self.__algaritm_internal.enc_motor_1
+
+    def reset_motor_enc_2(self):
+        self.last_enc_2 = self.__algaritm_internal.enc_motor_2
+
+    def reset_motor_enc_3(self):
+        self.last_enc_3 = self.__algaritm_internal.enc_motor_3
+
     @property
     def yaw(self):
         return self.__algaritm_internal.yaw

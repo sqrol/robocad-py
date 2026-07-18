@@ -18,6 +18,15 @@ class CommonRobot(Robot):
             signal.signal(signal.SIGTERM, self.handler)
             signal.signal(signal.SIGINT, self.handler)
 
+        self.last_enc_0 = 0
+        self.last_enc_1 = 0
+        self.last_enc_2 = 0
+        self.last_enc_3 = 0
+        self.last_enc_4 = 0
+        self.last_enc_5 = 0
+        self.last_enc_6 = 0
+        self.last_enc_7 = 0
+
     def stop(self):
         self.__common_internal.stop()
         self.write_log("Program stopped")
@@ -94,35 +103,59 @@ class CommonRobot(Robot):
 
     @property
     def motor_enc_0(self):
-        return self.__common_internal.enc_motor_0
+        return self.__common_internal.enc_motor_0 - self.last_enc_0
 
     @property
     def motor_enc_1(self):
-        return self.__common_internal.enc_motor_1
+        return self.__common_internal.enc_motor_1 - self.last_enc_1
 
     @property
     def motor_enc_2(self):
-        return self.__common_internal.enc_motor_2
+        return self.__common_internal.enc_motor_2 - self.last_enc_2
 
     @property
     def motor_enc_3(self):
-        return self.__common_internal.enc_motor_3
+        return self.__common_internal.enc_motor_3 - self.last_enc_3
     
     @property
     def motor_enc_4(self):
-        return self.__common_internal.enc_motor_4
+        return self.__common_internal.enc_motor_4 - self.last_enc_4
     
     @property
     def motor_enc_5(self):
-        return self.__common_internal.enc_motor_5
+        return self.__common_internal.enc_motor_5 - self.last_enc_5
     
     @property
     def motor_enc_6(self):
-        return self.__common_internal.enc_motor_6
+        return self.__common_internal.enc_motor_6 - self.last_enc_6
     
     @property
     def motor_enc_7(self):
-        return self.__common_internal.enc_motor_7
+        return self.__common_internal.enc_motor_7 - self.last_enc_7
+
+    def reset_motor_enc_0(self):
+        self.last_enc_0 = self.__common_internal.enc_motor_0
+
+    def reset_motor_enc_1(self):
+        self.last_enc_1 = self.__common_internal.enc_motor_1
+
+    def reset_motor_enc_2(self):
+        self.last_enc_2 = self.__common_internal.enc_motor_2
+
+    def reset_motor_enc_3(self):
+        self.last_enc_3 = self.__common_internal.enc_motor_3
+
+    def reset_motor_enc_4(self):
+        self.last_enc_4 = self.__common_internal.enc_motor_4
+
+    def reset_motor_enc_5(self):
+        self.last_enc_5 = self.__common_internal.enc_motor_5
+
+    def reset_motor_enc_6(self):
+        self.last_enc_6 = self.__common_internal.enc_motor_6
+
+    def reset_motor_enc_7(self):
+        self.last_enc_7 = self.__common_internal.enc_motor_7
     
     @property
     def yaw(self):
